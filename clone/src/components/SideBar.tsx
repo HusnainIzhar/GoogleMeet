@@ -10,9 +10,9 @@ const SideBar: FC<Props> = () => {
   const path = usePathname();
   return (
     <section
-      className={`max-w-[264px] transition-all duration-700 overflow-hidden ${
+      className={`max-w-[264px] transition-all duration-700 overflow-hidden max:flex ${
         show ? "w-[264px]" : "w-16"
-      } border-r border-theme-3 h-[calc(100vh-64px)] bg-theme-2 text-theme-textActive flex flex-col gap-6 px-2 pt-5`}
+      } border-r border-theme-3 h-[calc(100vh-64px)] bg-theme-2 text-theme-textActive hidden flex-col gap-6 px-2 pt-5`}
       onMouseEnter={() => setShow(true)}
       onMouseLeave={() => setShow(false)}
     >
