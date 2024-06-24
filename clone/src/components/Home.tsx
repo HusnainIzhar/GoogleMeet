@@ -10,10 +10,7 @@ import {
 import React, { useEffect, useState } from "react";
 import Card from "../components/Card";
 import { DateTimeFormatOptions } from "intl";
-import { usePathname } from "next/navigation";
-import { useRouter } from "next/navigation";
-import Sidebar from "../components/SideBar";
-import { sidebarData } from "@/constants";
+import { useUser } from "@clerk/nextjs";
 
 type Props = {};
 
@@ -37,13 +34,14 @@ const Home = (props: Props) => {
     .toLocaleDateString("en-PK", timeOptions)
     .split(",")[1]
     .trim();
+
+  const { isSignedIn } = useUser();
   return (
-    <div className="flex-1 flex h-full">
+    <div className="flex-1 flex h-full px-5">
       <section className="flex-1 flex flex-col items-center gap-5">
-        <div className="w-[1296px] h-[303px] border border-theme-3 rounded-lg mt-5 bg-theme-2 flex">
-          <div className="w-1/2 text-white  p-5 flex flex-col justify-center gap-5 h-full">
-            <h2 className="text-5xl font-extralight text-theme-textActive">
-              {" "}
+        <div className="w-full h-[303px] border border-theme-3 rounded-lg mt-5 bg-theme-2 flex">
+          <div className="flex w-full sm:w-1/2 text-white  p-5 flex-col justify-center gap-5 h-full">
+            <h2 className="text-3xl lg:text-5xl font-extralight  text-theme-textActive">
               Experience seamless video meetings with Chime.
             </h2>
             <p className="font-extralight text-theme-textActive">
@@ -51,12 +49,12 @@ const Home = (props: Props) => {
               Connect, collaborate, and create without limits.
             </p>
           </div>
-          <div className="w-1/2 text-theme-textActive flex flex-col justify-center gap-5 items-center">
+          <div className="hidden sm:flex w-1/2 text-theme-textActive  flex-col justify-center gap-5 items-center">
             <h3 className="text-5xl font-extralight">{currentTime}</h3>
             <h4 className="font-extralight">{currentDate}</h4>
           </div>
         </div>
-        <div className="flex gap-5">
+        <div className="flex gap-5 flex-wrap justify-normal">
           <Card
             icon={<Plus size={30} />}
             title="New Meeting"
@@ -67,16 +65,20 @@ const Home = (props: Props) => {
             title="Join Meeting"
             subtitle="via invitation link"
           />
-          <Card
-            icon={<Calendar size={30} />}
-            title="Schedule Meeting"
-            subtitle="Plan your meeting"
-          />
-          <Card
-            icon={<CassetteTape size={30} />}
-            title="View Recordings"
-            subtitle="Meeting Recordings"
-          />
+          {isSignedIn && (
+            <>
+              <Card
+                icon={<Calendar size={30} />}
+                title="Schedule Meeting"
+                subtitle="Plan your meeting"
+              />
+              <Card
+                icon={<CassetteTape size={30} />}
+                title="View Recordings"
+                subtitle="Meeting Recordings"
+              />
+            </>
+          )}
         </div>
       </section>
     </div>
