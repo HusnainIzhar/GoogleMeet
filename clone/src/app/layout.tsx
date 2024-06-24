@@ -3,6 +3,7 @@ import "./globals.css";
 import { MetaData } from "@/utils/MetaData";
 import NextTopLoader from "nextjs-toploader";
 import { ClerkProvider } from "@clerk/nextjs";
+import StreamProvider from "../providers/StreamClientProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 const poppin = Poppins({
@@ -35,7 +36,7 @@ export default function RootLayout({
           }}
         >
           <NextTopLoader showSpinner={false} />
-          {children}
+          <StreamProvider>{children}</StreamProvider>
         </ClerkProvider>
       </body>
     </html>

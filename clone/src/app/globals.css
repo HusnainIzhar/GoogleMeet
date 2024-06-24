@@ -8,17 +8,8 @@
   box-sizing: border-box;
 }
 
-.glassmorphism {
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
-}
-.glassmorphism2 {
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-}
 
-
-/* ==== clerk class override ===== */
+/* clerk classes */
 
 .cl-internal-phfxlr{
   border: 1px solid #2d333b;
@@ -61,4 +52,49 @@
 }
 .cl-internal-1pfcfzo{
   color:#2d333b
+}
+.cl-userButtonPopoverActionButton:hover{
+  color:#dbe2e8
+}
+.cl-userButtonPopoverActionButton{
+  color:#848d97
+}
+
+.cl-internal-t7xoon:hover {
+  color:#dbe2e8
+} 
+
+.cl-internal-t7xoon{
+  color:#848d97
+} 
+.cl-internal-zpbffa{
+  color:#848d97
+}
+.cl-internal-eukaea{
+  color:#848d97
+}
+.cl-internal-1xpngvq{
+  color:#848d97
+}
+
+.cl-internal-1xpngvq:hover{
+  color:#dbe2e8
+}
+.cl-internal-19v6770{
+  color:#848d97
+}
+.cl-internal-19v6770:hover{
+  color:#dbe2e8
+}
+.cl-internal-1qz3ov6{
+  color:#848d97
+}
+.cl-internal-1qz3ov6:hover{
+  color:#dbe2e8
+}
+.cl-internal-1qz3ov6{
+  background-color: #0d1117;
+}
+.cl-internal-1dtwxh1:hover{
+  color:#dbe2e8
 }
