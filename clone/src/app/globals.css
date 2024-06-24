@@ -16,3 +16,49 @@
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
 }
+
+
+/* ==== clerk class override ===== */
+
+.cl-internal-phfxlr{
+  border: 1px solid #2d333b;
+  border-radius: 8px;
+}
+
+.cl-userButtonPopoverActionButtonIcon {
+  color: #ffffff;
+}
+
+.cl-logoBox {
+  height: 40px;
+}
+.cl-dividerLine {
+  background: #2d333b;
+  height: 2px;
+}
+
+.cl-internal-1ljjxiy{
+  border: 3px solid #ffffff;
+}
+.cl-internal-1ljjxiy:hover{
+  background-color: #0d1117;
+}
+.cl-internal-1auy46s{
+  color:#dbe2e8
+}
+.cl-internal-1auy46s:hover{
+  color:#dbe2e8
+}
+
+.cl-internal-wkkub3 {
+  color: #ffffff;
+}
+.cl-userButtonPopoverActionButton {
+  color: #ffffff;
+}
+.cl-internal-15di0mo{
+  color: #848d97;
+}
+.cl-internal-1pfcfzo{
+  color:#2d333b
+}

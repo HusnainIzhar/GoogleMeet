@@ -21,7 +21,19 @@ export default function RootLayout({
     <html lang="en">
       <body className={` ${poppin.className} bg-theme-dark`}>
         {" "}
-        <ClerkProvider>
+        <ClerkProvider
+          appearance={{
+            variables: {
+              colorBackground: "#161b22",
+              colorText: "#dbe2e8",
+              colorPrimary: "#0d1117",
+              colorInputBackground: "#0d1117",
+              colorInputText: "#848d97",
+              colorTextSecondary: "#848d97",
+              colorTextOnPrimaryBackground: "#dbe2e8",
+            },
+          }}
+        >
           <NextTopLoader showSpinner={false} />
           {children}
         </ClerkProvider>
