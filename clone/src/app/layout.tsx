@@ -5,6 +5,8 @@ import NextTopLoader from "nextjs-toploader";
 import { ClerkProvider } from "@clerk/nextjs";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import "@stream-io/video-react-sdk/dist/css/styles.css"
+import StreamProvider from "../providers/StreamClientProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 const poppin = Poppins({
@@ -38,7 +40,7 @@ export default function RootLayout({
         >
           <NextTopLoader showSpinner={false} />
           <ToastContainer hideProgressBar theme="#0d1117" autoClose={3000} />
-          {children}
+          <StreamProvider>{children}</StreamProvider>
         </ClerkProvider>
       </body>
     </html>

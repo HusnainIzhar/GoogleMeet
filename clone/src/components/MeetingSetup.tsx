@@ -1,54 +1,79 @@
 "use client";
+
+import React, { FC, useEffect, useState } from "react";
 import {
   DeviceSettings,
   VideoPreview,
   useCall,
 } from "@stream-io/video-react-sdk";
 import { Mic, MicOff, Video, VideoOff } from "lucide-react";
-import React, { useEffect, useState } from "react";
 
-type Props = {};
+type Props = {
+  setupCompleted: () => void;
+};
 
-const MeetingSetup = (props: Props) => {
+const MeetingSetup: FC<Props> = ({ setupCompleted }) => {
   const [mic, setMic] = useState(false);
   const [cam, setCam] = useState(false);
   const call = useCall();
 
   useEffect(() => {
-    if (mic) {
-      call?.microphone.enable();
-    } else {
-      call?.microphone.disable();
+    if (call) {
+      if (mic) {
+        call.microphone.enable();
+      } else {
+        call.microphone.disable();
+      }
+      if (cam) {
+        call.camera.enable();
+      } else {
+        call.camera.disable();
+      }
     }
-    if (cam) {
-      call?.camera.enable();
-    } else {
-      call?.camera.disable();
-    }
-  }, [mic, cam, call?.camera, call?.microphone]);
+  }, [mic, cam, call]);
 
-  if (!call) throw new Error("useCall must be Called by Stream");
+  const handleClick = () => {
+    if (call) {
+      call.join();
+      setupCompleted();
+    } else {
+      throw new Error("useCall must be called within a Stream context");
+    }
+  };
+
+  if (!call) {
+    return <div>Loading...</div>;
+  }
+
   return (
-    <div className="flex h-screen w-full  flex-col items-center justify-center gap-3 text-theme-textInactive">
+    <div className="flex h-screen w-full flex-col items-center justify-center gap-3 text-theme-textInactive">
       <h1 className="text-2xl font-bold">Setup</h1>
-      <VideoPreview />
-      <div>
+      <div className="w-full max-w-screen-md h-1/2 border border-theme-3 flex justify-center items-center rounded-lg overflow-hidden">
+        <VideoPreview />
+      </div>
+      <div className="flex flex-col items-center gap-2">
         <div className="flex gap-5">
           <div
             className="hover:cursor-pointer p-2 rounded-full bg-theme-4"
             onClick={() => setMic(!mic)}
           >
-            {mic ? <Mic /> : <MicOff />}
+            {mic ? <Mic className="text-theme-textActive" /> : <MicOff />}
           </div>
           <div
             className="hover:cursor-pointer p-2 rounded-full bg-theme-4"
             onClick={() => setCam(!cam)}
           >
-            {cam ? <Video /> : <VideoOff />}
+            {cam ? <Video className="text-theme-textActive" /> : <VideoOff />}
           </div>
+          <DeviceSettings />
         </div>
-        <DeviceSettings />
-        <button></button>
+    
+        <button
+          onClick={handleClick}
+          className="px-3 py-2 rounded-lg mt-3 border border-theme-3 bg-theme-4 text-theme-textInactive hover:text-theme-textActive"
+        >
+          Join Meeting
+        </button>
       </div>
     </div>
   );

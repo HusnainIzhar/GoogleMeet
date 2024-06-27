@@ -184,11 +184,6 @@
 
 /* Toastify CSS */
 
-.Toastify__toast-container {
-  border: 1px solid #2d333b; /* Custom border color */
-  border-radius: 8px; /* Optional: to match your theme's border radius */
-}
-
 .Toastify__toast {
   background-color: #010409 !important; /* Custom background color */
   color: #dbe2e8 !important; /* Custom text color */

@@ -1,7 +1,11 @@
 "use client";
 import { tokenProvider } from "@/actions/Stream.action";
 import { useUser } from "@clerk/nextjs";
-import { StreamVideo, StreamVideoClient } from "@stream-io/video-react-sdk";
+import {
+  StreamVideo,
+  StreamVideoClient,
+  User,
+} from "@stream-io/video-react-sdk";
 import { Loader2 } from "lucide-react";
 import { FC, ReactNode, useEffect, useState } from "react";
 
@@ -15,16 +19,28 @@ const MyApp: FC<Props> = ({ children }) => {
   const { user, isLoaded } = useUser();
 
   useEffect(() => {
-    if (!user || !isLoaded) return;
     if (!apiKey) throw new Error("Api key from Stream is missing");
-    const client = new StreamVideoClient({
-      apiKey,
-      user: {
+    let streamUser: User;
+
+    if (user && user.id) {
+      streamUser = {
         id: user.id,
         name: user.username || user.id,
         image: user.imageUrl,
-      },
-      tokenProvider,
+      };
+    } else {
+      const id = crypto.randomUUID();
+      streamUser = {
+        id: id,
+        type: "guest",
+        name: `Guest ${id}`,
+      };
+    }
+
+    const client = new StreamVideoClient({
+      apiKey,
+      user: streamUser,
+      tokenProvider: user && user.id ? tokenProvider : undefined,
     });
     setVideoClient(client);
   }, [user, isLoaded]);
