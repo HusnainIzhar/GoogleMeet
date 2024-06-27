@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { tokenProvider } from "@/actions/Stream.action";
 import { useUser } from "@clerk/nextjs";
 import { StreamVideo, StreamVideoClient } from "@stream-io/video-react-sdk";
@@ -30,7 +30,11 @@ const MyApp: FC<Props> = ({ children }) => {
   }, [user, isLoaded]);
 
   if (!videoClient)
-    return <Loader2 className="h-screen w-full mx-auto animate-spin" />;
+    return (
+      <div className="flex h-screen items-center justify-center">
+        <Loader2 className="mx-auto animate-spin text-theme-3" />
+      </div>
+    );
   return <StreamVideo client={videoClient}>{children}</StreamVideo>;
 };
 

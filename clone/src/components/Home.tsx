@@ -1,7 +1,5 @@
 "use client";
 import {
-  House,
-  CalendarFold,
   CassetteTape,
   Plus,
   UserRoundPlus,
@@ -11,6 +9,9 @@ import React, { useEffect, useState } from "react";
 import Card from "../components/Card";
 import { DateTimeFormatOptions } from "intl";
 import { useUser } from "@clerk/nextjs";
+import CreateMeeting from "./popups/CreateMeeting";
+import JoinMeeting from "./popups/JoinMeeting";
+import ScheduleMeeting from "./popups/ScheduleMeeting";
 
 type Props = {};
 
@@ -59,11 +60,15 @@ const Home = (props: Props) => {
             icon={<Plus size={30} />}
             title="New Meeting"
             subtitle="Setup a new meeting"
+            modalChild={<CreateMeeting/>}
+            modalHeading="Create Meeting"
           />
           <Card
             icon={<UserRoundPlus size={30} />}
             title="Join Meeting"
             subtitle="via invitation link"
+            modalChild={<JoinMeeting/>}
+            modalHeading="Join Meeting"
           />
           {isSignedIn && (
             <>
@@ -71,11 +76,15 @@ const Home = (props: Props) => {
                 icon={<Calendar size={30} />}
                 title="Schedule Meeting"
                 subtitle="Plan your meeting"
+                modalChild={<ScheduleMeeting/>}
+                modalHeading="Schedule Meeting"
               />
               <Card
                 icon={<CassetteTape size={30} />}
                 title="View Recordings"
                 subtitle="Meeting Recordings"
+                modalChild={<CreateMeeting/>}
+                modalHeading="View Recordings"
               />
             </>
           )}
