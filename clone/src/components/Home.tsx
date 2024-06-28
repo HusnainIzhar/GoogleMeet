@@ -17,6 +17,7 @@ type Props = {};
 
 const Home = (props: Props) => {
   const today = new Date();
+  const [alert, setAlert] = useState(false);
   const dateOptions: DateTimeFormatOptions = {
     weekday: "long",
     day: "numeric",

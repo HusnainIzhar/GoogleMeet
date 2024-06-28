@@ -2,11 +2,14 @@
 
 import React, { FC, useEffect, useState } from "react";
 import {
+  CallingState,
   DeviceSettings,
   VideoPreview,
   useCall,
+  useCallStateHooks,
 } from "@stream-io/video-react-sdk";
 import { Mic, MicOff, Video, VideoOff } from "lucide-react";
+import Link from "next/link";
 
 type Props = {
   setupCompleted: () => void;
@@ -15,7 +18,12 @@ type Props = {
 const MeetingSetup: FC<Props> = ({ setupCompleted }) => {
   const [mic, setMic] = useState(false);
   const [cam, setCam] = useState(false);
+  const { useCallEndedAt } = useCallStateHooks();
+  const callEndedAt = useCallEndedAt();
+  const callHasEnded = !!callEndedAt;
   const call = useCall();
+  const isInFuture =
+    call?.state.startsAt && new Date(call.state.startsAt) > new Date();
 
   useEffect(() => {
     if (call) {
@@ -31,6 +39,13 @@ const MeetingSetup: FC<Props> = ({ setupCompleted }) => {
       }
     }
   }, [mic, cam, call]);
+
+  if (callHasEnded)
+    return <MeetingEndedScreen message="This meeting has been ended" />;
+  if (isInFuture)
+    return (
+      <MeetingEndedScreen message="This meeting is not starting yet" />
+    );
 
   const handleClick = () => {
     if (call) {
@@ -67,7 +82,7 @@ const MeetingSetup: FC<Props> = ({ setupCompleted }) => {
           </div>
           <DeviceSettings />
         </div>
-    
+
         <button
           onClick={handleClick}
           className="px-3 py-2 rounded-lg mt-3 border border-theme-3 bg-theme-4 text-theme-textInactive hover:text-theme-textActive"
@@ -80,3 +95,17 @@ const MeetingSetup: FC<Props> = ({ setupCompleted }) => {
 };
 
 export default MeetingSetup;
+
+function MeetingEndedScreen({ message }: { message: string }) {
+  return (
+    <div className=" h-screen  flex flex-col items-center justify-center gap-6 w-full ">
+      <p className="font-bold text-theme-textInactive">{message}</p>
+      <Link
+        className=" text-theme-textInactive hover:text-theme-textActive bg-theme-4 p-2 rounded-lg border border-theme-3"
+        href={"/"}
+      >
+        Go Home
+      </Link>
+    </div>
+  );
+}

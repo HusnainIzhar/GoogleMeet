@@ -5,16 +5,28 @@ type Props = {
   icon: React.ReactNode;
   title: string;
   subtitle: string;
-  modalChild:React.ReactNode
-  modalHeading:string
+  modalChild: React.ReactNode;
+  modalHeading: string;
 };
 
-const Card: FC<Props> = ({ icon, title, subtitle ,modalChild,modalHeading}) => {
+const Card: FC<Props> = ({
+  icon,
+  title,
+  subtitle,
+  modalChild,
+  modalHeading,
+}) => {
   const [alert, setAlert] = useState(false);
   return (
     <>
       {" "}
-      {alert && <Modal component={modalChild} closeAlert={() => setAlert(false)} heading={modalHeading}/>}
+      {alert && (
+        <Modal
+          component={modalChild}
+          closeAlert={() => setAlert(false)}
+          heading={modalHeading}
+        />
+      )}
       <div
         className="text-theme-textInactive hover:text-theme-textActive w-full md:w-[309px] h-[120px] border border-theme-3 rounded-lg bg-theme-2 p-5 flex gap-5 hover:cursor-pointer items-center"
         onClick={() => setAlert(true)}
