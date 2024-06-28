@@ -25,7 +25,6 @@ const MeetingCard: FC<Props> = ({
   btn1Icon,
   btn2Icon
 }) => {
-  console.log("time is ",time)
   return (
     <div className=" bg-theme-2 border border-theme-3 p-5 w-full md:w-[400px] h-[220px]  rounded-lg flex flex-col gap-5 justify-center">
       <div className=" text-theme-textActive">{icon}</div>
@@ -34,7 +33,7 @@ const MeetingCard: FC<Props> = ({
       {!previous && button1Text && button2Text && (
         <div className="w-full flex justify-end gap-5">
           <button
-            className=" bg-theme-4 text-theme-textInactive hover:text-theme-textActive py-2 px-4 border border-theme-3 rounded-lg"
+            className="flex gap-2 bg-theme-4 text-theme-textInactive hover:text-theme-textActive py-2 px-4 border border-theme-3 rounded-lg"
             onClick={handleButton1}
           >
             {btn1Icon}{button1Text}
