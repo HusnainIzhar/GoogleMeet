@@ -32,18 +32,18 @@ const ScheduleMeeting = (props: Props) => {
 
   const scheduleMeeting = async () => {
     if (user) {
-      console.log("woring");
       try {
         const id = crypto.randomUUID();
         const call = client.call("default", id);
         if (currentDateTime === null) return;
-        await call.getOrCreate({
-          data: {
-            starts_at: currentDateTime.toISOString(),
-            custom: { description: description },
-          },
-        });
-        console.log("pofdlsfjlsd");
+        if (currentDateTime !== null) {
+          await call.getOrCreate({
+            data: {
+              starts_at: currentDateTime.toISOString(),
+              custom: { description: description },
+            },
+          });
+        }
         setCall(call);
         setLink(`${process.env.NEXT_PUBLIC_BASE_URL}/meeting/${call.id}`);
       } catch (e) {
@@ -65,8 +65,7 @@ const ScheduleMeeting = (props: Props) => {
     if (link !== "") {
       navigator.clipboard.writeText(link);
       toast.success("Link Copied");
-      router.push("/")
-    
+      router.push("/");
     }
   };
   return (
